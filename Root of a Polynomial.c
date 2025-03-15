@@ -58,15 +58,15 @@ double Polynomial_Root(int n, double c[], double a, double b, double EPS){
     double p, cha;
     int flag = 1;
     if(f(a, n, c) * f(b, n, c) > 0) flag = 0;
-    p = a + (a - b) * i / 2;
-    while(fabs(f(p, n, c)) >= EPS){
+    p = a + (b - a) * i / 2;
+    while(fabs(f(p, n, c)) > ZERO){
         if(((f1(p, n, c) * f1(p, n, c)) - (f(p, n, c) * f2(p, n, c))) < ZERO) flag = 0;
         cha = (f(p, n, c) * f1(p, n, c)) / ((f1(p, n, c) * f1(p, n, c)) - (f(p, n, c) * f2(p, n, c)));
-        if(fabs(cha) < ZERO) return p;
+        if(fabs(cha) < EPS) return p;
         p -= cha;
         if(p < a || p > b){
             i = i + 1;
-            p = (a + b) / i;
+            p = a + (b - a) * i / 2;
         }
         if(i > 2){
             flag = 0;
